@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BicycleApi.DBData.Entities
+﻿namespace BicycleApi.DBData.Entities
 {
 	public class Country
 	{
+		public int Id { get; set; }
+		public string Name { get; set; }
 	}
 }

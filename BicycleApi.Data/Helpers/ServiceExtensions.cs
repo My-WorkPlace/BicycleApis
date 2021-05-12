@@ -1,5 +1,6 @@
 ﻿using BicycleApi.Data.Services;
 using BicycleApi.DBData.Repository;
+
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BicycleApi.Data.Helpers
@@ -9,7 +10,7 @@ namespace BicycleApi.Data.Helpers
 		public static void AddServicesInjections(this IServiceCollection services)
 		{
 			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-			services.AddScoped<DetailService>();
+			services.AddScoped<IDetailService, DetailService>();
 		}
 	}
 }

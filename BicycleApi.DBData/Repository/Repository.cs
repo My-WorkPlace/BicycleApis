@@ -28,7 +28,7 @@ namespace BicycleApi.DBData.Repository
 			await _dbContext.SaveChangesAsync();
 		}
 
-		public async Task<IEnumerable<TEntity>> GetAsync() => _dbSet;
+		public IEnumerable<TEntity> Get() => _dbSet;
 
 		public async Task<TEntity> GetByIdAsync(int id) => await _dbSet.FindAsync(id);
 
