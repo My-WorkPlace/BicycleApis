@@ -12,5 +12,15 @@ namespace BicycleApi.DBData
 		{
 
 		}
+		protected override void OnModelCreating(ModelBuilder builder)
+		{
+			builder.Entity<Brand>().HasIndex(u => u.Name)
+				.IsUnique();
+
+			builder.Entity<Country>().HasIndex(u => u.Name)
+				.IsUnique();
+
+			base.OnModelCreating(builder);
+		}
 	}
 }

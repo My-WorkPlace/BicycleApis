@@ -1,8 +1,12 @@
-﻿namespace BicycleApi.DBData.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BicycleApi.DBData.Entities
 {
 	public class Country
 	{
 		public int Id { get; set; }
+
+		[Required]
 		public string Name { get; set; }
 	}
 }

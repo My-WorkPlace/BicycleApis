@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,7 +32,11 @@ namespace BicycleApi.DBData.Repository
 			await _dbContext.SaveChangesAsync();
 		}
 
-		public IEnumerable<TEntity> Get() => _dbSet;
+		public  async Task<IEnumerable<TEntity>> GetAsync() => await _dbSet.AsNoTracking().ToListAsync();
+		public IEnumerable<TEntity> Get(Func<TEntity, bool> predicate)
+		{
+			return _dbSet.AsNoTracking().Where(predicate);
+		}
 
 		public async Task<TEntity> GetByIdAsync(int id) => await _dbSet.FindAsync(id);
 
@@ -37,6 +45,24 @@ namespace BicycleApi.DBData.Repository
 			_dbContext.Entry(entity).State = EntityState.Modified;
 			await _dbContext.SaveChangesAsync();
 			return entity;
+		}
+		public IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties)
+		{
+			return Include(includeProperties).ToList();
+		}
+
+		public IEnumerable<TEntity> GetWithInclude(Func<TEntity, bool> predicate,
+			params Expression<Func<TEntity, object>>[] includeProperties)
+		{
+			var query = Include(includeProperties);
+			return query.Where(predicate).ToList();
+		}
+
+		private IEnumerable<TEntity> Include(params Expression<Func<TEntity, object>>[] includeProperties)
+		{
+			var query = _dbSet.AsNoTracking();
+			return includeProperties
+				.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
 		}
 	}
 }

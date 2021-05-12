@@ -1,4 +1,5 @@
-﻿using BicycleApi.Data.Services;
+﻿using BicycleApi.Data.Interfaces;
+using BicycleApi.Data.Services;
 using BicycleApi.DBData.Repository;
 
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,8 @@ namespace BicycleApi.Data.Helpers
 		{
 			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 			services.AddScoped<IDetailService, DetailService>();
+			services.AddScoped<IBrandService, BrandService>();
+			services.AddScoped<ICountryService, CountryService>();
 		}
 	}
 }
