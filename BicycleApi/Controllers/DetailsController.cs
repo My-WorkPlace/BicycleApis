@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
-
+using AutoMapper;
 using BicycleApi.Data.Interfaces;
 using BicycleApi.Data.Models.Request;
-
+using BicycleApi.DBData.Entities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BicycleApi.Controllers
@@ -12,10 +12,12 @@ namespace BicycleApi.Controllers
 	public class DetailsController : ControllerBase
 	{
 		private readonly IDetailService _detailService;
+		private readonly IMapper _mapper;
 
-		public DetailsController(IDetailService detailService)
+		public DetailsController(IDetailService detailService, IMapper mapper)
 		{
 			_detailService = detailService;
+			_mapper = mapper;
 		}
 
 		[HttpGet]
@@ -42,8 +44,12 @@ namespace BicycleApi.Controllers
 		[HttpPut]
 		public async Task<IActionResult> Upsert(DetailRequestModel model)
 		{
-			var res = await _detailService.UpsertAsync(model);
+			var developerDtoMapped = _mapper.Map<Detail>(model);
+			var res = await _detailService.UpsertAsync(developerDtoMapped);
 			return res == null ? (IActionResult)NotFound() : Ok(res);
+
+			//var res = await _detailService.UpsertAsync(model);
+			//return res == null ? (IActionResult)NotFound() : Ok(res);
 		}
 
 		[HttpDelete("{id}")]

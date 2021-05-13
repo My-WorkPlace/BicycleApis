@@ -1,3 +1,4 @@
+using System;
 using BicycleApi.Data.Helpers;
 using BicycleApi.DBData;
 using Microsoft.AspNetCore.Builder;
@@ -28,6 +29,7 @@ namespace BicycleApi
 
 			services.AddControllers();
 			services.AddServicesInjections();
+			services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 			services.AddSwaggerGen();
 		}
 

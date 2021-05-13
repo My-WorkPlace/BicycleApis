@@ -47,6 +47,32 @@ namespace BicycleApi.Data.Services
 			return await _repository.CreateAsync(newDetail);
 		}
 
+		public async Task<Detail> UpsertAsync(Detail model)
+		{
+			var detail = await _repository.GetByIdAsync(model.Id);
+			var brand = await _brandService.UpsertAsync(model.Brand.Name);
+			var country = await _countryService.UpsertAsync(model.Country.Name);
+
+			if (detail != null)
+			{
+				detail.Brand = brand;
+				detail.Country = country;
+				detail.Type = model.Type;
+				detail.Color = model.Color;
+				detail.Material = model.Material;
+				return await _repository.UpdateAsync(detail);
+			}
+			var newDetail = new Detail()
+			{
+				Brand = brand,
+				Country = country,
+				Type = model.Type,
+				Material = model.Material,
+				Color = model.Color
+			};
+			return await _repository.CreateAsync(newDetail);
+		}
+
 		public async Task<IEnumerable<Detail>> GetAsync() => await _repository.GetAsync();
 
 		public async Task<Detail> GetByIdAsync(int id) => await _repository.GetByIdAsync(id);

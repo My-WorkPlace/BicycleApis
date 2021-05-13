@@ -12,5 +12,7 @@
 		public virtual Brand Brand { get; set; }
 		public int CountryId { get; set; }
 		public virtual Country Country { get; set; }
+
+		public bool IsDeleted { get; set; }
 	}
 }
