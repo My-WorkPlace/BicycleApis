@@ -2,7 +2,6 @@
 
 using BicycleApi.Data.Interfaces;
 using BicycleApi.Data.Models.Request;
-using BicycleApi.DBData.Entities;
 
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,17 +32,17 @@ namespace BicycleApi.Controllers
 			return detail == null ? (IActionResult)NotFound() : Ok(detail);
 		}
 
-		[HttpPost]
-		public async Task<IActionResult> Create(DetailRequestModel model)
-		{
-			var detail = await _detailService.UpsertAsync(model);
-			return Ok(detail);
-		}
+		//[HttpPost]
+		//public async Task<IActionResult> Create(DetailRequestModel model)
+		//{
+		//	var detail = await _detailService.UpsertAsync(model);
+		//	return Ok(detail);
+		//}
 
 		[HttpPut]
-		public async Task<IActionResult> Update(Detail category)
+		public async Task<IActionResult> Upsert(DetailRequestModel model)
 		{
-			var res = await _detailService.UpdateAsync(category);
+			var res = await _detailService.UpsertAsync(model);
 			return res == null ? (IActionResult)NotFound() : Ok(res);
 		}
 

@@ -26,6 +26,7 @@ namespace BicycleApi.Data.Services
 			var detail = await _repository.GetByIdAsync(model.Id);
 			var brand = await _brandService.UpsertAsync(model.BrandName);
 			var country = await _countryService.UpsertAsync(model.CountryName);
+
 			if (detail != null)
 			{
 				detail.Brand = brand;
@@ -52,20 +53,5 @@ namespace BicycleApi.Data.Services
 
 		public async Task RemoveAsync(Detail entity) => await _repository.RemoveAsync(entity);
 
-		public async Task<Detail> UpdateAsync(Detail entity)
-		{
-			var detailForUpdate = await _repository.GetByIdAsync(entity.Id);
-
-			if (detailForUpdate != null)
-			{
-				detailForUpdate.Material = entity.Material;
-				detailForUpdate.Type = entity.Type;
-				detailForUpdate.Color = entity.Color;
-				detailForUpdate.Brand.Name = entity.Brand.Name;
-				detailForUpdate.Country.Name = entity.Country.Name;
-				return await _repository.UpdateAsync(detailForUpdate);
-			}
-			return detailForUpdate;
-		}
 	}
 }

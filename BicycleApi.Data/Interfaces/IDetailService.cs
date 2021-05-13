@@ -10,7 +10,6 @@ namespace BicycleApi.Data.Interfaces
 		Task<IEnumerable<Detail>> GetAsync();
 		Task<Detail> GetByIdAsync(int id);
 		Task<Detail> UpsertAsync(DetailRequestModel model);
-		Task<Detail> UpdateAsync(Detail entity);
 		Task RemoveAsync(Detail entity);
 	}
 }
