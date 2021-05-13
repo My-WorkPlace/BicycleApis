@@ -3,6 +3,7 @@
 	public class Detail
 	{
 		public int Id { get; set; }
+
 		public DetailType Type { get; set; }
 		public string Color { get; set; }
 		public string Material { get; set; }

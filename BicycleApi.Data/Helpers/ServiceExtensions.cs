@@ -3,6 +3,7 @@ using BicycleApi.Data.Services;
 using BicycleApi.DBData.Repository;
 
 using Microsoft.Extensions.DependencyInjection;
+using Sieve.Services;
 
 namespace BicycleApi.Data.Helpers
 {
@@ -14,6 +15,7 @@ namespace BicycleApi.Data.Helpers
 			services.AddScoped<IDetailService, DetailService>();
 			services.AddScoped<IBrandService, BrandService>();
 			services.AddScoped<ICountryService, CountryService>();
+			services.AddScoped<SieveProcessor>();
 		}
 	}
 }
