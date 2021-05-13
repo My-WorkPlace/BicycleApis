@@ -9,7 +9,7 @@ using BicycleApi.Data.Models.Request;
 using BicycleApi.DBData.Entities;
 
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.Extensions.Logging;
 using Sieve.Models;
 using Sieve.Services;
 
@@ -22,12 +22,14 @@ namespace BicycleApi.Controllers
 		private readonly IDetailService _detailService;
 		private readonly IMapper _mapper;
 		private SieveProcessor _sieveProcessor;
+		private readonly ILogger<DetailsController> _logger;
 
-		public DetailsController(IDetailService detailService, IMapper mapper, SieveProcessor sieveProcessor)
+		public DetailsController(IDetailService detailService, IMapper mapper, SieveProcessor sieveProcessor, ILogger<DetailsController> logger)
 		{
 			_detailService = detailService;
 			_mapper = mapper;
 			_sieveProcessor = sieveProcessor;
+			_logger = logger;
 		}
 
 		[HttpGet]

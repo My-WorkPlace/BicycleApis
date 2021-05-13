@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 
 namespace BicycleApi
 {
@@ -44,6 +45,8 @@ namespace BicycleApi
 			app.UseHttpsRedirection();
 
 			app.UseRouting();
+			app.UseSerilogRequestLogging(); // <-- Add this line
+
 			// Enable middleware to serve generated Swagger as a JSON endpoint.
 			app
 				.UseDeveloperExceptionPage()
