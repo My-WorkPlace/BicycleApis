@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using BicycleApi.Data.Interfaces;
@@ -62,21 +63,25 @@ namespace BicycleApi.Data.Services
 				detail.Material = model.Material;
 				return await _repository.UpdateAsync(detail);
 			}
-			var newDetail = new Detail()
-			{
-				Brand = brand,
-				Country = country,
-				Type = model.Type,
-				Material = model.Material,
-				Color = model.Color
-			};
+			var newDetail = new Detail(model.Type, model.Color, model.Material) { Brand = brand, Country = country };
 			return await _repository.CreateAsync(newDetail);
 		}
 
 		public async Task<IEnumerable<Detail>> GetAsync() => await _repository.GetAsync();
-		public IEnumerable<Detail> Get() =>  _repository.GetWithInclude(x => x.Country, x => x.Brand);
+		public IEnumerable<Detail> Get() => _repository.GetWithInclude(x => x.Country, x => x.Brand);
 
 		public async Task<Detail> GetByIdAsync(int id) => await _repository.GetByIdAsync(id);
+		public async Task<Detail> GetByIdAsyncTest(int id)
+		{
+			var response = new Detail();
+			await Task.Factory.StartNew(() =>
+			{
+				response = _repository.GetWithInclude(x => x.Country, x => x.Brand).FirstOrDefault(d => d.Id == id);
+
+			});
+
+			return response;
+		}
 
 		public async Task RemoveAsync(Detail entity) => await _repository.RemoveAsync(entity);
 

@@ -14,5 +14,17 @@
 		public virtual Country Country { get; set; }
 
 		public bool IsDeleted { get; set; }
+
+		public Detail(DetailType type, string color , string material)
+		{
+			Type = type;
+			Color = color;
+			Material = material;
+		}
+
+		public Detail()
+		{
+			
+		}
 	}
 }

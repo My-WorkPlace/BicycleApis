@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using AutoMapper;
+
 using BicycleApi.Data.Interfaces;
 using BicycleApi.Data.Models.Request;
 using BicycleApi.DBData.Entities;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace BicycleApi.Controllers
@@ -25,6 +28,7 @@ namespace BicycleApi.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Get()
 		{
+			
 			var response = new List<DetailRequestModel>();
 			await Task.Factory.StartNew(() =>
 			{
@@ -37,16 +41,9 @@ namespace BicycleApi.Controllers
 		[HttpGet("{id}")]
 		public async Task<IActionResult> GetById(int id)
 		{
-			var detail = await _detailService.GetByIdAsync(id);
-			return detail == null ? (IActionResult)NotFound() : Ok(detail);
+			var detail = await _detailService.GetByIdAsyncTest(id);
+			return detail == null ? (IActionResult)NotFound() : Ok(_mapper.Map<DetailRequestModel>(detail));
 		}
-
-		//[HttpPost]
-		//public async Task<IActionResult> Create(DetailRequestModel model)
-		//{
-		//	var detail = await _detailService.UpsertAsync(model);
-		//	return Ok(detail);
-		//}
 
 		[HttpPut]
 		public async Task<IActionResult> Upsert(DetailRequestModel model)
@@ -54,9 +51,6 @@ namespace BicycleApi.Controllers
 			var detail = _mapper.Map<Detail>(model);
 			var res = await _detailService.UpsertAsync(detail);
 			return res == null ? (IActionResult)NotFound() : Ok(_mapper.Map<DetailRequestModel>(res));
-
-			//var res = await _detailService.UpsertAsync(model);
-			//return res == null ? (IActionResult)NotFound() : Ok(res);
 		}
 
 		[HttpDelete("{id}")]
