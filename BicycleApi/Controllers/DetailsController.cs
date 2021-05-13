@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using BicycleApi.Data.Interfaces;
 using BicycleApi.Data.Models.Request;
@@ -23,8 +25,13 @@ namespace BicycleApi.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Get()
 		{
-			var details = await _detailService.GetAsync();
-			return Ok(details);
+			var response = new List<DetailRequestModel>();
+			await Task.Factory.StartNew(() =>
+			{
+				var source = _detailService.Get();
+				response.AddRange(source.Select(detail => _mapper.Map<DetailRequestModel>(detail)));
+			});
+			return Ok(response);
 		}
 
 		[HttpGet("{id}")]
@@ -44,9 +51,9 @@ namespace BicycleApi.Controllers
 		[HttpPut]
 		public async Task<IActionResult> Upsert(DetailRequestModel model)
 		{
-			var developerDtoMapped = _mapper.Map<Detail>(model);
-			var res = await _detailService.UpsertAsync(developerDtoMapped);
-			return res == null ? (IActionResult)NotFound() : Ok(res);
+			var detail = _mapper.Map<Detail>(model);
+			var res = await _detailService.UpsertAsync(detail);
+			return res == null ? (IActionResult)NotFound() : Ok(_mapper.Map<DetailRequestModel>(res));
 
 			//var res = await _detailService.UpsertAsync(model);
 			//return res == null ? (IActionResult)NotFound() : Ok(res);

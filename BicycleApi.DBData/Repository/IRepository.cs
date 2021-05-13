@@ -14,8 +14,10 @@ namespace BicycleApi.DBData.Repository
 		Task<TEntity> UpdateAsync(TEntity entity);
 		Task RemoveAsync(TEntity entity);
 		IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties);
-
 		IEnumerable<TEntity> GetWithInclude(Func<TEntity, bool> predicate,
+			params Expression<Func<TEntity, object>>[] includeProperties);
+
+		TEntity Item(Expression<Func<TEntity, bool>> wherePredicate,
 			params Expression<Func<TEntity, object>>[] includeProperties);
 	}
 }

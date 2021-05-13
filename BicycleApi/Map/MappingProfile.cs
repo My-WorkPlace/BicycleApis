@@ -8,14 +8,12 @@ namespace BicycleApi.Map
 	{
 		public MappingProfile()
 		{
-			//CreateMap<Developer, DeveloperDTO>(); //Map from Developer Object to DeveloperDTO Object
-
-			CreateMap<DetailRequestModel, Detail>() //Map from Developer Object to DeveloperDTO Object
-				//.ForMember(detail => detail.Country.Name, source => source.MapFrom(detailRequestModel => detailRequestModel.CountryName)) //Specific Mapping
-				.ForPath(detail => detail.Country.Name, source => source.MapFrom(detailRequestModel => detailRequestModel.CountryName)) //Specific Mapping
-				//.ForMember(detail => detail.Brand.Name, source => source.MapFrom(detailRequestModel => detailRequestModel.BrandName)); //Specific Mapping
-				.ForPath(detail => detail.Brand.Name, source => source.MapFrom(detailRequestModel => detailRequestModel.BrandName)); //Specific Mapping
-				
+			CreateMap<DetailRequestModel, Detail>() //Map from DetailRequestModel Object to Detail Object
+				.ForPath(detail => detail.Country.Name, source => source
+					.MapFrom(detailRequestModel => detailRequestModel.CountryName))
+				.ForPath(detail => detail.Brand.Name, source => source
+					.MapFrom(detailRequestModel => detailRequestModel.BrandName))
+				.ReverseMap();
 		}
 	}
 }

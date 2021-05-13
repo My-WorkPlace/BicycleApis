@@ -8,6 +8,7 @@ namespace BicycleApi.Data.Interfaces
 	public interface IDetailService
 	{
 		Task<IEnumerable<Detail>> GetAsync();
+		IEnumerable<Detail> Get();
 		Task<Detail> GetByIdAsync(int id);
 		Task<Detail> UpsertAsync(DetailRequestModel model);
 		Task<Detail> UpsertAsync(Detail model);

@@ -74,6 +74,7 @@ namespace BicycleApi.Data.Services
 		}
 
 		public async Task<IEnumerable<Detail>> GetAsync() => await _repository.GetAsync();
+		public IEnumerable<Detail> Get() =>  _repository.GetWithInclude(x => x.Country, x => x.Brand);
 
 		public async Task<Detail> GetByIdAsync(int id) => await _repository.GetByIdAsync(id);
 
