@@ -1,5 +1,9 @@
+using System;
+using BicycleApi.Data.Helpers;
+using BicycleApi.DBData;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -18,7 +22,15 @@ namespace BicycleApi
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddDbContext<AppDBContext>(options =>
+				options.UseSqlServer(
+					Configuration.GetConnectionString("DefaultConnection"),
+					b => b.MigrationsAssembly("BicycleApi")));
+
 			services.AddControllers();
+			services.AddServicesInjections();
+			services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+			services.AddSwaggerGen();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,6 +44,11 @@ namespace BicycleApi
 			app.UseHttpsRedirection();
 
 			app.UseRouting();
+			// Enable middleware to serve generated Swagger as a JSON endpoint.
+			app
+				.UseDeveloperExceptionPage()
+				.UseSwagger()
+				.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1"));
 
 			app.UseAuthorization();
 
