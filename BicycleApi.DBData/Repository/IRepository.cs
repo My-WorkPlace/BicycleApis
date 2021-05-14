@@ -19,5 +19,8 @@ namespace BicycleApi.DBData.Repository
 
 		TEntity Item(Expression<Func<TEntity, bool>> wherePredicate,
 			params Expression<Func<TEntity, object>>[] includeProperties);
+
+		Task Commit();
+		Task Rollback();
 	}
 }

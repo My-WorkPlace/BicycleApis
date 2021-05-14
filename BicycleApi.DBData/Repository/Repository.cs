@@ -20,15 +20,15 @@ namespace BicycleApi.DBData.Repository
 
 		public async Task<TEntity> CreateAsync(TEntity entity)
 		{
+			if (entity == null) throw new ArgumentNullException("entity");
+			_dbContext.Entry(entity).State = EntityState.Modified;
 			await _dbSet.AddAsync(entity);
-			await _dbContext.SaveChangesAsync();
 			return entity;
 		}
 
 		public async Task RemoveAsync(TEntity entity)
 		{
 			_dbSet.Remove(entity);
-			await _dbContext.SaveChangesAsync();
 		}
 
 		public  async Task<IEnumerable<TEntity>> GetAsync() => await _dbSet.AsNoTracking().ToListAsync();
@@ -41,8 +41,8 @@ namespace BicycleApi.DBData.Repository
 
 		public async Task<TEntity> UpdateAsync(TEntity entity)
 		{
+			if(entity == null) throw new ArgumentNullException("entity");
 			_dbContext.Entry(entity).State = EntityState.Modified;
-			await _dbContext.SaveChangesAsync();
 			return entity;
 		}
 		public IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] includeProperties)
@@ -71,6 +71,16 @@ namespace BicycleApi.DBData.Repository
 				_dbSet.Include(property);
 			}
 			return _dbSet.Where(wherePredicate).FirstOrDefault();
+		}
+
+		public async Task Commit()
+		{
+			await _dbContext.SaveChangesAsync();
+		}
+
+		public async Task Rollback()
+		{
+			await _dbContext.DisposeAsync();
 		}
 	}
 }
