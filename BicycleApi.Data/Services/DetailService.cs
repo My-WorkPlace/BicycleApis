@@ -57,5 +57,15 @@ namespace BicycleApi.Data.Services
 		}
 
 		public async Task RemoveAsync(Detail entity) => await _repository.RemoveAsync(entity);
+
+		public async Task Commit()
+		{
+			await _repository.Commit();
+		}
+
+		public async Task Rollback()
+		{
+			await _repository.Rollback();
+		}
 	}
 }

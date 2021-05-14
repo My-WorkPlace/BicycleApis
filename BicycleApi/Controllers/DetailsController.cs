@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -57,7 +58,18 @@ namespace BicycleApi.Controllers
 		public async Task<IActionResult> Upsert(DetailRequestModel model)
 		{
 			var detail = _mapper.Map<Detail>(model);
-			var res = await _detailService.UpsertAsync(detail);
+			var res = new Detail();
+			try
+			{
+				res = await _detailService.UpsertAsync(detail);
+				await _detailService.Commit();
+			}
+			catch (Exception ex)
+			{
+				_logger.LogError("Error when creating uow transaction, thereby reverting back. Error: {}", ex.Message);
+				await _detailService.Rollback();
+			}
+			
 			return res == null ? (IActionResult)NotFound() : Ok(_mapper.Map<DetailRequestModel>(res));
 		}
 
