@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BicycleApi", "BicycleApi.csproj", "{4D7362BA-176E-4C97-B611-4B5A6A0631D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BicycleApi.Data", "..\BicycleApi.Data\BicycleApi.Data.csproj", "{937B0A20-4938-4385-B2D5-D6FF55524149}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BicycleApi.Data", "..\BicycleApi.Data\BicycleApi.Data.csproj", "{937B0A20-4938-4385-B2D5-D6FF55524149}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BicycleApi.DBData", "..\BicycleApi.DBData\BicycleApi.DBData.csproj", "{7BFE24AD-2F22-43B2-B89D-83743A0A95C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BicycleApi.DBData", "..\BicycleApi.DBData\BicycleApi.DBData.csproj", "{7BFE24AD-2F22-43B2-B89D-83743A0A95C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BicycleApi.Tests", "..\BicycleApi.Tests\BicycleApi.Tests.csproj", "{AAD6CC22-F1A9-4949-BE31-4D0DF56F1A1C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{7BFE24AD-2F22-43B2-B89D-83743A0A95C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BFE24AD-2F22-43B2-B89D-83743A0A95C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BFE24AD-2F22-43B2-B89D-83743A0A95C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAD6CC22-F1A9-4949-BE31-4D0DF56F1A1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAD6CC22-F1A9-4949-BE31-4D0DF56F1A1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAD6CC22-F1A9-4949-BE31-4D0DF56F1A1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAD6CC22-F1A9-4949-BE31-4D0DF56F1A1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

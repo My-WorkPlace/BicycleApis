@@ -3,11 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using AutoMapper;
-
 using BicycleApi.Data.Interfaces;
 using BicycleApi.Data.Models.Request;
 using BicycleApi.DBData.Entities;
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Sieve.Models;
@@ -21,7 +19,7 @@ namespace BicycleApi.Controllers
 	{
 		private readonly IDetailService _detailService;
 		private readonly IMapper _mapper;
-		private SieveProcessor _sieveProcessor;
+		private readonly SieveProcessor _sieveProcessor;
 		private readonly ILogger<DetailsController> _logger;
 
 		public DetailsController(IDetailService detailService, IMapper mapper, SieveProcessor sieveProcessor, ILogger<DetailsController> logger)
